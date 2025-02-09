@@ -70,7 +70,7 @@ export default function Dashboard() {
     }
 
     if (isUserLoading || isActionsLoading  || !user || !actions) {
-        return <div>Loading...</div>
+        return <div></div>
     }
 
     return (
@@ -83,10 +83,12 @@ export default function Dashboard() {
 
         }}>
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                <h2 className="text-2xl font-semibold mb-4">Total
-                    Points: {actions?.reduce((sum, action) => sum + action.points, 0) || 0}</h2>
-                <ActionForm onAddAction={handleAddAction}/>
-                <ActionList actions={actions} onUpdateAction={handleUpdateAction} onDeleteAction={handleDeleteAction}/>
+                <h2 className="text-2xl font-semibold mb-4">Pontos: {actions?.reduce((sum, action) => sum + action.points, 0) || 0}</h2>
+                <div className="flex flex-col space-y-4">
+                    <ActionForm onAddAction={handleAddAction}/>
+                    <ActionList actions={actions} onUpdateAction={handleUpdateAction} onDeleteAction={handleDeleteAction}/>
+                </div>
+
             </div>
         </DashboardContext.Provider>
 

@@ -32,14 +32,14 @@ export default function ActionForm({ onAddAction }: ActionFormProps) {
                 type="text"
                 value={newAction.title}
                 onChange={(e) => setNewAction({ ...newAction, title: e.target.value })}
-                placeholder="Action Title"
+                placeholder="Título"
                 className="w-full p-2 border rounded"
                 required
             />
             <textarea
                 value={newAction.description}
                 onChange={(e) => setNewAction({ ...newAction, description: e.target.value })}
-                placeholder="Description"
+                placeholder="Descrição"
                 className="w-full p-2 border rounded"
                 required
             />
@@ -59,12 +59,12 @@ export default function ActionForm({ onAddAction }: ActionFormProps) {
                 type="number"
                 value={newAction.points}
                 onChange={(e) => setNewAction({ ...newAction, points: Number.parseInt(e.target.value) })}
-                placeholder="Points"
+                placeholder="Pontos"
                 className="w-full p-2 border rounded"
                 required
             />
             <button type="submit" className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
-                Add Action
+                Adicionar
             </button>
         </form>
     )

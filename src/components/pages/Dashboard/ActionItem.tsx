@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import {SustainabilityAction} from "@/models/domain.ts";
+import {Card} from "@/components/ui/card.tsx";
 
 interface ActionItemProps {
     action: SustainabilityAction
@@ -19,7 +20,7 @@ export default function ActionItem({ action, onUpdate, onDelete }: ActionItemPro
     }
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <Card className="p-6">
             {isEditing ? (
                 <div className="space-y-4">
                     <input
@@ -40,25 +41,25 @@ export default function ActionItem({ action, onUpdate, onDelete }: ActionItemPro
                         className="w-full p-2 border rounded"
                     />
                     <button onClick={handleUpdate} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
-                        Save
+                        Salvar
                     </button>
                 </div>
             ) : (
                 <>
                     <h3 className="text-xl font-semibold mb-2">{action.title}</h3>
                     <p className="text-gray-600 mb-2">{action.description}</p>
-                    <p className="text-green-600 font-semibold mb-4">Points: {action.points}</p>
+                    <p className="text-green-600 font-semibold mb-4">Pontos: {action.points}</p>
                     <div className="flex justify-between">
                         <button onClick={() => setIsEditing(true)} className="text-blue-500 hover:text-blue-600">
-                            Edit
+                            Editar
                         </button>
                         <button onClick={() => onDelete(action.id)} className="text-red-500 hover:text-red-600">
-                            Delete
+                            Eliminar
                         </button>
                     </div>
                 </>
             )}
-        </div>
+        </Card>
     )
 }
 

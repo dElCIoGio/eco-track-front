@@ -3,12 +3,14 @@ import { useState } from "react"
 import {useRoutes} from "@/hooks/routes.ts";
 import { Link } from "react-router";
 import {logIn} from "@/firebase/libs.ts";
+import {Button} from "@/components/ui/button.tsx";
 
 
 export default function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const {gotoDashboard} = useRoutes()
 
@@ -16,24 +18,30 @@ export default function Login() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError("")
+        setIsLoading(true)
 
         try {
 
             logIn(email, password)
                 .then((user) => {
                     gotoDashboard(user.uid)
+            }).catch(err => {
+                setIsLoading(false)
+                console.error(err)
+                setError("Falha ao autenticar, verifique os dados e tente novamente.")
             })
 
         } catch (err) {
+            setIsLoading(false)
             console.error(err)
-            setError("Failed to log in. Please check your credentials.")
+            setError("Falha ao autenticar, tente novamente mais tarde.")
         }
     }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-400 to-blue-500">
             <div className="bg-white p-8 rounded-lg shadow-md w-96">
-                <h1 className="text-2xl font-bold mb-6 text-center text-green-600">Log In to Sustainability Tracker</h1>
+                <h1 className="text-2xl font-bold mb-6 text-center text-green-600">Inicie sessão para acessar a sua dashboard</h1>
                 {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
@@ -62,17 +70,18 @@ export default function Login() {
                             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
                         />
                     </div>
-                    <button
+                    <Button
+                        disabled={isLoading}
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
-                        Log In
-                    </button>
+                        Iniciar sessão
+                    </Button>
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600">
-                    Don't have an account?{" "}
+                    Não tem uma conta?{" "}
                     <Link to="/signup" className="font-medium text-green-600 hover:text-green-500">
-                        Sign up
+                        Crie já
                     </Link>
                 </p>
             </div>
